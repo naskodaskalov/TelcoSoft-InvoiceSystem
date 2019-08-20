@@ -2,11 +2,15 @@ import React from 'react'
 import Navigation from './Components/Navigation'
 import Routes from './Configs/Routes'
 
+import './App.css'
+
 function App () {
   return (
-    <div className='App'>
+    <div className='container-fluid'>
       <Navigation />
-      <Routes />
+      <div className='wrapper'>
+        <Routes />
+      </div>
     </div>
   )
 }
