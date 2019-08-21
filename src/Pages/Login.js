@@ -82,7 +82,18 @@ export default class Login extends Component {
           }
         })
         .then(() => {
-         Auth.saveUser(this.state.user.username)
+          Auth.saveUser(this.state.user.username)
+          var privateLinks = document.getElementsByClassName('private-link')
+          var loginLink = document.getElementsByClassName('login-link')[0]
+          loginLink.classList.add('d-none')
+          if (privateLinks.length > 0) {
+            for (let i = 0; i < privateLinks.length; i++) {
+              let currentLink = privateLinks[i]
+              if (currentLink.className.indexOf('d-none') > -1) {
+                currentLink.classList.remove('d-none')
+              }
+            }
+          }
         })
         .then(() => {
           this.props.history.push('/customers')
