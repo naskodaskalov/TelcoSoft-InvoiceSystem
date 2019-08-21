@@ -1,4 +1,4 @@
-const baseUrl = 'https://qwewe.free.beeceptor.com/'
+const baseUrl = 'https://testtask.free.beeceptor.com/'
 
 const getOptions = () => ({
   mode: 'cors',
