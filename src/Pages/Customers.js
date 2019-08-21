@@ -34,7 +34,7 @@ export default class Customers extends Component {
   }
 
   saveChosenUserInfo (event) {
-    let userFullname = event.target.dataset['firstname'] + " " +  event.target.dataset['lastname']
+    let userFullname = event.target.dataset['firstname'] + ' ' + event.target.dataset['lastname']
     window.localStorage.setItem('selected-user', userFullname)
   }
 
@@ -43,12 +43,11 @@ export default class Customers extends Component {
     let start = this.state.start
     let end = this.state.end
 
-    
     this.setState({ disablePrevBtn: false })
     this.setState({
       start: start + 10, end: end + 10
     })
-    
+
     if (this.state.end + 10 == this.state.customers.length) {
       this.setState({ disableNextBtn: true })
     }
@@ -68,7 +67,7 @@ export default class Customers extends Component {
   }
   render () {
     let customersArr = this.state.customers
-    
+
     let arrSlice = customersArr.slice(this.state.start, this.state.end)
     let customers = arrSlice.map((customer, index) => (
       <div className='card col-md-3 m-1' key={index}>
