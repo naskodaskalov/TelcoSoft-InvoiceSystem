@@ -16,7 +16,7 @@ const Routes = () => (
     <PrivateRoute exact path='/customers' component={Customers} />
     <PrivateRoute exact path='/logout' component={Logout} />
     <PrivateRoute path='/invoice/:id' component={CustomerInvoices} />
-    <PrivateRoute path='/invoiceLists/:id' component={InvoiceDetails} />
+    <PrivateRoute path='/invoiceItems/:id' component={InvoiceDetails} />
   </Switch>
 )
 

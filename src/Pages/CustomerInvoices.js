@@ -42,7 +42,7 @@ export default class CustomerInvoices extends Component {
           loader
         ) : (
           <div>
-            <h2 className='d-flex justify-content-center'>Invoices for: </h2>
+            <h2 className='d-flex justify-content-center'>Invoices for: {window.localStorage.getItem("selected-user")}</h2>
             <table className='table table-hover col-md-8 m-auto'>
               <thead>
                 <tr>

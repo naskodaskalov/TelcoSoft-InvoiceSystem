@@ -82,7 +82,7 @@ export default class Login extends Component {
           }
         })
         .then(() => {
-          Auth.saveUser(this.state.user.username)
+         Auth.saveUser(this.state.user.username)
         })
         .then(() => {
           this.props.history.push('/customers')
