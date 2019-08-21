@@ -3,6 +3,7 @@ import React, { Component } from 'react'
 import InputField from '../Components/Input'
 import FormHelper from '../Components/FormHelper'
 
+import Auth from '../Configs/Auth'
 import Data from '../Configs/Data'
 
 import toastr from 'toastr'
@@ -15,35 +16,78 @@ export default class Login extends Component {
       user: {
         username: '',
         password: ''
-      }
+      },
+      errors: []
     }
 
     this.handleInputChange = this.handleInputChange.bind(this)
-    this.handleFormSubmit = this.handleFormSubmit.bind(this)
+    this.handleUserForm = this.handleUserForm.bind(this)
+    this.handleUserLogin = this.handleUserLogin.bind(this)
+  }
+
+  componentWillUnmount () {
   }
 
   handleInputChange (e) {
     FormHelper.handleFormChange.bind(this)(e, 'user')
   }
 
-  handleFormSubmit (e) {
-    e.preventDefault()
+  validateUser () {
+    const user = this.state.user
+    let errors = []
+    let formIsValid = true
 
-    Data
-      .post('login')
-      .then((res) => {
-        if (res.status !== 'ok') {
+    if (user.username.length <= 3) {
+      errors.push('Username should be longer than 3 symbols')
+    }
 
-        }
+    if (user.password.length <= 5) {
+      errors.push('Password should be longer than 5 symbols')
+    }
 
-        toastr.success(`Welcome back, ${this.state.user.username}`)
-        this.saveUserInLocalStorage(this.state.user.username)
-        this.props.history.push('/customers')
-      })
+    if (errors.length > 0) {
+      formIsValid = false
+      this.setState({ errors: errors })
+    }
+
+    return formIsValid
   }
 
-  saveUserInLocalStorage (username) {
-    window.localStorage.setItem('username', username)
+  handleUserLogin (data) {
+    if (data.status !== 'ok') {
+      this.setState({ errors: 'Your credentials are wrong!' })
+    } else {
+      Auth.saveUser(this.state.user.username)
+      toastr.success(`Welcome back, ${this.state.user.username}!`)
+      this.props.history.push('/customers')
+    }
+  }
+
+  handleUserForm (e) {
+    e.preventDefault()
+    const isUserValid = this.validateUser()
+    if (!isUserValid) {
+      let errorsArr = this.state.errors
+
+      for (let i = 0; i < errorsArr.length; i++) {
+        const currentError = errorsArr[i]
+        toastr.warning(currentError)
+      }
+    } else {
+      Data
+        .post('login')
+        .then((res) => {
+          if (res.status !== 'ok') {
+            toastr.warning('Wrong credentials!')
+          }
+        })
+        .then(() => {
+          Auth.saveUser(this.state.user.username)
+        })
+        .then(() => {
+          this.props.history.push('/customers')
+        })
+    }
   }
 
   render () {
@@ -65,7 +109,7 @@ export default class Login extends Component {
             onChange={this.handleInputChange}
           />
 
-          <input type='submit' className='btn btn-primary mb-2' onClick={this.handleFormSubmit} value='Login' />
+          <input type='submit' className='btn btn-primary mb-2' onClick={this.handleUserForm} value='Login' />
         </form>
       </div>
     )

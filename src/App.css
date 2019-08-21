@@ -35,6 +35,12 @@ a.text-dark:hover.btn-outline-primary {
   background-color: unset;
 }
 
+.btn-primary:hover {
+  background-color: #fff;
+  border-color: #ff9800;
+  color: #ff9800;
+}
+
 .btn-primary {
   background-color: #ff9800;
   border-color: #ff9800;
@@ -53,4 +59,21 @@ a.text-dark:hover.btn-outline-primary {
   font-weight: 600;
   background-color: #ff9800;
   border: 1px solid #ff9800;
+}
+
+nav > div {
+  display: inline;
+}
+
+.customers-list {
+  justify-content: center;
+}
+
+div.col-md-4.m-auto > h3 {
+  text-align: center;
+  background-color: #ff9800;
+  color: #fff;
+  font-weight: 600;
+  border-radius: 50%;
+  padding: 30px 8px;
 }

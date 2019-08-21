@@ -19,11 +19,20 @@ class Data {
       .then(handleJsonResponse)
   }
 
-  static post (url) {
+  static post (url, data) {
     let options = getOptions()
     options.method = 'POST'
+    options.body = data
 
     return window.fetch(`${baseUrl}${url}`, options)
+      .then(handleJsonResponse)
+  }
+
+  static getInvoicesData (id, url) {
+    let options = getOptions()
+    options.method = 'GET'
+
+    return window.fetch(`${baseUrl}${url}/${id}`, options)
       .then(handleJsonResponse)
   }
 }
